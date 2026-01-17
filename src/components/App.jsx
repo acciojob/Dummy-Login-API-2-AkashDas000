@@ -26,7 +26,11 @@ const App = () => {
         setPassError(true);
         return;
       }
-      console.log("login success");
+
+      setError(false);
+      setPassError(false);
+
+    //   console.log("login success");
     }, 3000);
   };
 
