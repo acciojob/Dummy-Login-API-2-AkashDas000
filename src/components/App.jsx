@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 const App = () => {
-const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userError, setUserError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const USERS = [
-  { email: "akash@gmail.com", password: "123456" }
-];
+  const USERS = [{ email: "akash@gmail.com", password: "123456" }];
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
 
     // Clear previous errors
     setUserError("");
@@ -74,6 +76,6 @@ const [email, setEmail] = useState("");
       </button>
     </form>
   );
-}
+};
 
-export default App
+export default App;
