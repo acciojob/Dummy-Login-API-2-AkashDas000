@@ -1,74 +1,79 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 const App = () => {
-  const [email, setEmail] = useState("");
+const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [passError, setPassError] = useState(false);
-
-  const USERS = [{ email: "akash@gmail.com", password: "123456" }];
+  const [userError, setUserError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const USERS = [
+  { email: "akash@gmail.com", password: "123456" }
+];
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setError(false);
-    setPassError(false);
+    // Clear previous errors
+    setUserError("");
+    setPasswordError("");
 
+    // Simulate async validation
     setTimeout(() => {
       const user = USERS.find((u) => u.email === email);
 
       if (!user) {
-        setError(true);
+        setUserError("User not found");
         return;
       }
 
       if (user.password !== password) {
-        setPassError(true);
+        setPasswordError("Password Incorrect");
         return;
       }
 
-      setError(false);
-      setPassError(false);
-
-    //   console.log("login success");
+      // Successful login
+      alert("Login Successful!");
     }, 3000);
   };
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          id="input-email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            setError(false);
-          }}
-        />
-        <br />
-        <br />
-        <input
-          type="text"
-          id="input-password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setPassError(false);
-          }}
-        />
-        <br />
-        <br />
-        <button id="submit-form-btn" type="submit">
-          Submit
-        </button>
-      </form>
-      {error && <p id="user-error">User not found</p>}
-      {passError && <p id="password-error">Password incorrect </p>}
-    </div>
-  );
-};
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setUserError("");
+  };
 
-export default App;
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setPasswordError("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <input
+          id="input-email"
+          type="email"
+          value={email}
+          onChange={handleEmailChange}
+          placeholder="Email"
+        />
+        {userError && <p id="user-error">{userError}</p>}
+      </div>
+
+      <div>
+        <input
+          id="input-password"
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          placeholder="Password"
+        />
+        {passwordError && <p id="password-error">{passwordError}</p>}
+      </div>
+
+      <button id="submit-form-btn" type="submit">
+        Login
+      </button>
+    </form>
+  );
+}
+
+export default App
